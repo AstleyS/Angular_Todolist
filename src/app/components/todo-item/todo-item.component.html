@@ -3,6 +3,7 @@
 <p class="todo-title"> 
     <input (change)="onToggle(todo)" type="checkbox"/>    
     {{ todo.title }}
+    <button class="update" [routerLink] = "['/todos', todo.id]" (click) = "onUpdate(todo)">Update</button>
     <button class="del" (click)="onDelete(todo)">X</button>
 </p>
 </div>

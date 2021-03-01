@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service'
 
 import { Todo } from '../../models/Todo'
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-todos',
@@ -12,7 +13,9 @@ import { Todo } from '../../models/Todo'
 export class TodosComponent implements OnInit {
   todos: Todo[];
 
-  constructor(private todoService: TodoService) { }
+  constructor(
+    private todoService: TodoService, 
+  ) {}
 
   ngOnInit() {
     this.todoService.getTodos()
@@ -29,7 +32,7 @@ export class TodosComponent implements OnInit {
         t => t.id !== todo.id
       );
   }
-  
+
   // Add todos received from todo-item component
   addTodo(todo: Todo) {
     

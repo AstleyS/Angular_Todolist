@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
+import { DataService } from 'src/app/services/data.service';
 import { Todo } from 'src/app/models/Todo';
 
 @Component({
@@ -9,12 +10,16 @@ import { Todo } from 'src/app/models/Todo';
 })
 export class TodoItemComponent implements OnInit {
 
-  // Because we take in the todo from componet with [todo], we need to label it as an Input
+  // Because we take in from the parent component the todo from componet with [todo], we need to label it as an Input
   @Input() todo: Todo;
-  // Because we take out the todo (on delete) we need to label it as an Output
+  // Because we take out to the parent component the todo (on delete) we need to label it as an Output
   @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
+  // Because we take out to another component we need a shared service to send the todo
 
-  constructor(private todoService: TodoService) { }
+  constructor(
+    private todoService: TodoService, 
+    private dataService: DataService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -51,6 +56,11 @@ export class TodoItemComponent implements OnInit {
     this.deleteTodo.emit(todo)
     // Deletes on server
     this.todoService.deleteTodo(todo).subscribe()
+  }
+
+  // On update method to deal with update todos
+  onUpdateTodo(todo) {
+    this.dataService.updateTodo(todo)
   }
 
 }
