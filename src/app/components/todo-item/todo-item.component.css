@@ -1,3 +1,19 @@
-.is-complete {
+.todo {
+    background: gainsboro;
+    margin: 5px 0;
+    width: max-content;
+}
+
+.is-completed {
     text-decoration: line-through;
+}
+
+.del {
+    color: white;
+    font-weight: bold;
+    background: red;
+    border-radius: 50%;
+    padding: 5px 9px;
+    border: none;
+    cursor: pointer;
 }

@@ -9,9 +9,10 @@ import { Todo } from 'src/app/models/Todo';
 })
 export class TodoItemComponent implements OnInit {
 
+  // Because we take in the todo from componet with [todo], we need to label it as an Input
   @Input() todo: Todo;
-  @Output() deleteTodo: EventEmitter<Todo> =
-    new EventEmitter();
+  // Because we take out the todo (on delete) we need to label it as an Output
+  @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
 
   constructor(private todoService: TodoService) { }
 
@@ -22,13 +23,7 @@ export class TodoItemComponent implements OnInit {
   setClasses() {
     let classes =
     {
-      /*
-        Controla o comportamento do item (neste caso estiliza)
-        dependendo dos atributos do todo
-      */
-      todo: true,
-      'is-complete': this.todo.completed
-      
+      'is-completed': this.todo.completed
     }
 
     return classes;
@@ -38,9 +33,10 @@ export class TodoItemComponent implements OnInit {
   onToggle(todo) {
     console.log('onToggle');
     // toggle in ui
-    this.todo.completed = todo.completed;
+    this.todo.completed = !todo.completed;
     // toggle on server
-    this.todoService.toggleCompleted(todo).subscribe(
+    this.todoService.toggleCompleted(todo)
+    .subscribe(
       todo =>
       {
         console.log(todo)
@@ -51,10 +47,10 @@ export class TodoItemComponent implements OnInit {
 
   // On delete method to deal with delete todos
   onDelete(todo) {
-    // Apaga no UI
+    // Deletes on UI
     this.deleteTodo.emit(todo)
-    // Apaga no servidor
-    this.todoService.deleteTodo(todo).subscribe();
+    // Deletes on server
+    this.todoService.deleteTodo(todo).subscribe()
   }
 
 }

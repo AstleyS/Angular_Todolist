@@ -3,7 +3,6 @@ import { TodoService } from '../../services/todo.service'
 
 import { Todo } from '../../models/Todo'
 
-
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -11,11 +10,10 @@ import { Todo } from '../../models/Todo'
 })
 
 export class TodosComponent implements OnInit {
-  todos:Todo[];
+  todos: Todo[];
 
-  constructor(private todoService:TodoService) { }
+  constructor(private todoService: TodoService) { }
 
-  // noOnInit significa no inicio da aplicação
   ngOnInit() {
     this.todoService.getTodos()
       .subscribe(
@@ -23,26 +21,22 @@ export class TodosComponent implements OnInit {
       );
   }
 
+  // Delete the todo received from todo-item component  
   deleteTodo(todo: Todo) {
-    // Apagar o TODO selecionado  
     this.todos = this.todos
+    // Return all the todos except the todo to delete 
       .filter(
         t => t.id !== todo.id
       );
   }
   
+  // Add todos received from todo-item component
   addTodo(todo: Todo) {
-    this.todoService.addTodo(todo)
-      .subscribe(
-        todo => { this.todos.push(todo) }
-      )
-
-    this.todos = this.todos
-      .filter(
-        t => t.id !== todo.id
-      );
+    
+    if (todo.title !== undefined && todo.title.trim().length !== 0) {
+      this.todoService.addTodo(todo).subscribe(
+          todo => { this.todos.push(todo) }
+        )
+    } 
   }
-
-  
-
 }
