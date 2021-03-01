@@ -18,6 +18,4 @@ export class UpdateTodoItemComponent implements OnInit {
       todo => this.todo = todo
     )
   }
-
-
 }

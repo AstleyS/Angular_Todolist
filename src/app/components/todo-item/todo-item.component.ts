@@ -59,7 +59,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   // On update method to deal with update todos
-  onUpdateTodo(todo) {
+  onUpdate(todo) {
     this.dataService.updateTodo(todo)
   }
 
