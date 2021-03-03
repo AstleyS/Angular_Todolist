@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Todo } from 'src/app/models/Todo';
-import { DataService } from 'src/app/services/data.service';
+import { TodoService } from 'src/app/services/todo.service';
+
 
 @Component({
   selector: 'app-update-todo-item',
@@ -11,10 +11,11 @@ export class UpdateTodoItemComponent implements OnInit {
 
   todo;
 
-  constructor(private dataService: DataService) { }
+  constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
-    this.dataService.currentTodo.subscribe(
+    this.todo.currentTodo
+    .subscribe(
       todo => this.todo = todo
     )
   }

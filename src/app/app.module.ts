@@ -13,6 +13,7 @@ import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { UpdateTodoItemComponent } from './components/update-todo-item/update-todo-item.component';
 
 @NgModule({
+  // In this list we need to include the components used by the app
   declarations: [
     AppComponent,
     TodosComponent,
@@ -21,6 +22,7 @@ import { UpdateTodoItemComponent } from './components/update-todo-item/update-to
     AddTodoComponent,
     UpdateTodoItemComponent
   ],
+  // In this list we need to include the modules used by the app
   imports: [
     BrowserModule,
     AppRoutingModule,

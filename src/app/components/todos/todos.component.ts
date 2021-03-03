@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoService } from '../../services/todo.service'
+import { TodoService } from '../../services/todo.service';
 
-import { Todo } from '../../models/Todo'
-import { DataService } from 'src/app/services/data.service';
+import { Todo } from '../../models/Todo';
 
 @Component({
   selector: 'app-todos',
@@ -11,12 +10,15 @@ import { DataService } from 'src/app/services/data.service';
 })
 
 export class TodosComponent implements OnInit {
+  // This component has a list of Todos
   todos: Todo[];
 
+  // Dependency injection: Providing this component access to the todoService
   constructor(
-    private todoService: TodoService, 
+    private todoService: TodoService
   ) {}
 
+  // On init of the component, we populate itself with the todos provided from the service
   ngOnInit() {
     this.todoService.getTodos()
       .subscribe(
@@ -36,8 +38,10 @@ export class TodosComponent implements OnInit {
   // Add todos received from todo-item component
   addTodo(todo: Todo) {
     
+    // Check if the user input is undefined or empty. If it's not, push to the service
     if (todo.title !== undefined && todo.title.trim().length !== 0) {
-      this.todoService.addTodo(todo).subscribe(
+      this.todoService.addTodo(todo)
+        .subscribe(
           todo => { this.todos.push(todo) }
         )
     } 

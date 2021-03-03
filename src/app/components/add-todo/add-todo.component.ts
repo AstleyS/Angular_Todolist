@@ -7,6 +7,8 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class AddTodoComponent implements OnInit {
 
+  // Because we want to pass the todo that we added for another component (parent)
+  // We need to emit it and label it as @Output
   @Output() addTodo: EventEmitter<any> = new EventEmitter();
   title:string;
 

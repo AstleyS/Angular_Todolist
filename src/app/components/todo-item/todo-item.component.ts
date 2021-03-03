@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { DataService } from 'src/app/services/data.service';
 import { Todo } from 'src/app/models/Todo';
 
 @Component({
@@ -17,8 +16,7 @@ export class TodoItemComponent implements OnInit {
   // Because we take out to another component we need a shared service to send the todo
 
   constructor(
-    private todoService: TodoService, 
-    private dataService: DataService
+    private todoService: TodoService
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +58,7 @@ export class TodoItemComponent implements OnInit {
 
   // On update method to deal with update todos
   onUpdate(todo) {
-    this.dataService.updateTodo(todo)
+    this.todoService.updateTodo(todo)
   }
 
 }

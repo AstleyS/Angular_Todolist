@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Todo } from '../models/Todo';
@@ -7,11 +7,14 @@ import { Todo } from '../models/Todo';
 const httpOptions = {
   headers: new HttpHeaders(
     {
+      // The Content-Type header is used to indicate the media type of the resource.
       'Content-Type': 'application/json'
     }
   )
 }
 
+// Dependency injection: All services in order to provide data to another component 
+// they need the @Injectable decorator
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +23,9 @@ export class TodoService {
   // URL of the API
   todosUrls:string = 'https://jsonplaceholder.typicode.com/todos';
   todosLimit = '?_limit=5'
+
+  todo = new BehaviorSubject<Todo>(new Todo);
+  currentTodo = this.todo.asObservable();
 
   // we need to import the http module 
   constructor(private http:HttpClient) { }
@@ -43,8 +49,15 @@ export class TodoService {
     return this.http.delete<Todo>(url, httpOptions);
   }
 
+  // This function add the todo
   addTodo(todo: Todo): Observable<Todo> {
     return this.http.post<Todo>(this.todosUrls, todo, httpOptions);
   }
+
+  // This function updates the todo (still not in the server)
+  updateTodo(todo) {
+    this.todo.next(todo);
+  }
+
 }
 
